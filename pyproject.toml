@@ -18,3 +18,10 @@ pre-commit = "^3.7.0"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.blue]
+line-length = 120
+
+[tool.isort]
+line_length = 120
+multi_line_output = 9
