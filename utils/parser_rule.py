@@ -1,4 +1,7 @@
+import logging
 import re
+
+log = logging.getLogger(__name__)
 
 
 def get_web_category_id(row_data: str) -> str:
@@ -58,3 +61,15 @@ def check_web_category(row_data: str) -> bool:
             True if row_data.count('Имя корневой категории') > 0 else False,
         ]
     )
+
+
+def proverit(row_data: str) -> list[str]:
+    like_cat_level_data = re.findall(r'СГ\(9001\) like .*?\)', row_data)
+    like_cat_level_data = [
+        _.replace('СГ(9001) like ', '').replace('СГ(9001) = ', '').replace(')', '') for _ in like_cat_level_data
+    ]
+    like_cat_level = []
+    for value in like_cat_level_data:
+        if len(value) == 16:
+            like_cat_level.append(value)
+    return like_cat_level

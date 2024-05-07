@@ -8,6 +8,8 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.12"
 pandas = "^2.2.2"
+customtkinter = "^5.2.2"
+xlsxwriter = "^3.2.0"
 
 
 [tool.poetry.group.dev.dependencies]

@@ -1,5 +1,8 @@
 import csv
+import logging
 from pathlib import Path
+
+log = logging.getLogger(__name__)
 
 
 def read_csv(
@@ -13,5 +16,7 @@ def read_csv(
     with open(file_path, newline=newline, encoding=encoding) as csvfile:
         reader = csv.reader(csvfile, delimiter=delimiter, quotechar=quotechar)
         for row in reader:
+            if len(row) != 3:
+                log.warning(f'!= 3 | {row}')
             rows.append(row)
     return rows
