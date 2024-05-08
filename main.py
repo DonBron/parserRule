@@ -64,7 +64,7 @@ def open_file_dialog() -> Path:
     if not _path:
         raise ValueError('>>>>>>>Файл не выбран<<<<<<<<<<<')
     parsing(Path(_path))
-    showinfo('Выполнил', 'Выполнил')
+    showinfo('Выполнено', 'Выполнено')
 
 
 if __name__ == '__main__':

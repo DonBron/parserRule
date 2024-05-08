@@ -26,6 +26,8 @@ def get_like_cat_level_data(row_data: str) -> str:
     like_cat_level = []
     for value in like_cat_level_data:
         match len(value):
+            case 16:
+                like_cat_level.append('Проверить')
             case 12:
                 like_cat_level.append('6')
             case 11:
