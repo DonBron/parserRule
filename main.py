@@ -31,6 +31,7 @@ def parsing(file_path: Path) -> NoReturn:
             df_output.at[index, 'not'] = row_data.count('not')
             df_output.at[index, 'and not'] = row_data.count('and  not')
             df_output.at[index, 'like'] = row_data.count('like')
+            df_output.at[index, '№ Записи'] = row_data.count('№ Записи')
             df_output.at[index, '='] = row_data.count('=')
             df_output.at[index, 'Короткое интернет-имя'] = row_data.count('Короткое интернет-имя')
             df_output.at[index, 'есть id категории'] = check_web_category(row_data)
@@ -47,7 +48,7 @@ def parsing(file_path: Path) -> NoReturn:
             proverits += proverit(row_data)
         except AttributeError as err:
             log.warning(row_data)
-    df_new_sheet = pd.DataFrame(list(set(proverits)))
+    df_new_sheet = pd.DataFrame(list(set(proverits)), columns=['id из правил длинной 16 символов'])
 
     filename = time.strftime('%Y-%m-%d %H-%M-%S') + '.xlsx'
     writer = pd.ExcelWriter(filename, engine='xlsxwriter')
