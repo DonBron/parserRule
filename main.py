@@ -2,8 +2,7 @@ import logging
 import time
 import tkinter as tk
 from pathlib import Path
-from tkinter import filedialog
-from tkinter.messagebox import showinfo
+from tkinter import filedialog, messagebox
 from typing import NoReturn
 
 import pandas as pd
@@ -16,12 +15,8 @@ log = logging.getLogger(__name__)
 
 
 def parsing(file_path: Path) -> NoReturn:
-    # file_path = Path(r'C:\Users\alexe\Documents\projects\parserRule\files\done_0205.csv')
-
     rows = read_csv(file_path)
-
     df_input = pd.DataFrame(rows)
-
     df_output = pd.DataFrame(rows)
     for index, row in df_output.iterrows():
         row_data = row[2]
@@ -64,8 +59,12 @@ def open_file_dialog() -> Path:
     _path = filedialog.askopenfilename(filetypes=[('CSV files', '*.csv'), ('All files', '*.*')])
     if not _path:
         raise ValueError('>>>>>>>Файл не выбран<<<<<<<<<<<')
-    parsing(Path(_path))
-    showinfo('Выполнено', 'Выполнено')
+    try:
+        parsing(Path(_path))
+        messagebox.showinfo('Выполнено', 'Выполнено')
+    except Exception as err:
+        log.error(err)
+        messagebox.showerror('Ошибка', 'Смотрите логи')
 
 
 if __name__ == '__main__':
@@ -76,6 +75,7 @@ if __name__ == '__main__':
 
     app = customtkinter.CTk()  # create CTk window like you do with the Tk window
     app.geometry('240x240')
+    app.protocol('WM_DELETE_WINDOW', app.quit)
 
     # Use CTkButton instead of tkinter Button
     button_file = customtkinter.CTkButton(master=app, text='Выбрать файл', command=open_file_dialog)
